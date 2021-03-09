@@ -1,6 +1,85 @@
 <template>
-  <div>
-    Money.vue
+  <div class="nav-wrapper">
+    <div class="content">
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+      <p>Money.vue</p>
+    </div>
     <Nav />
   </div>
 </template>
@@ -12,4 +91,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.nav-wrapper {
+  border: 1px solid green;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+.content {
+  border: 1px solid blue;
+  flex-grow: 1;
+  overflow: auto;
+}
 </style>
