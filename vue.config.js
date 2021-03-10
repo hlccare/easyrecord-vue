@@ -12,6 +12,10 @@ module.exports = {
       .loader('svg-sprite-loader')
       .options({ extract: false })
       .end()
+      .use('svgo-loader')
+      .loader('svgo-loader')
+      .tap(options => ({ ...options, plugins: [{ removeAttrs: { attrs: 'fill' } }] }))
+      .end()
     config.plugin('svg-sprite').use(import('svg-sprite-loader/plugin'), [{ plainSprite: true }])
     config.module.rule('svg').exclude.add(dir) // 其他svg loader 排除 dir 目录
   }
