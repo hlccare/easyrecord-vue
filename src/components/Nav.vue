@@ -1,16 +1,19 @@
 import Nav from '@/components/Nav.vue';
 <template>
-  <div class="nav">
-    <router-link to="/money">
+  <nav>
+    <router-link to="/money" class="item">
       <Icon name="money" />
+      记账
     </router-link>
-    <router-link to="/labels">
+    <router-link to="/labels" class="item">
       <Icon name="label" />
+      标签
     </router-link>
-    <router-link to="/statistics">
+    <router-link to="/statistics" class="item">
       <Icon name="statistic" />
+      统计
     </router-link>
-  </div>
+  </nav>
 </template>
 
 <script lang='ts'>
@@ -18,7 +21,21 @@ export default {};
 </script>
 
 <style lang="scss" scoped>
-.nav {
-  border: 1px solid red;
+nav {
+  display: flex;
+  flex-direction: row;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  > .item {
+    padding: 2px 0;
+    width: 33.33333%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .icon {
+      height: 32px;
+      width: 32px;
+    }
+  }
 }
 </style>
