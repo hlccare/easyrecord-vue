@@ -10,9 +10,14 @@
 <script lang='ts'>
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
-@Component
+@Component({
+  props: {
+    propMessage: String,
+  },
+})
 export default class Types extends Vue {
   type = "-"; //'-'表示指出，‘+’表示收入
+  helloMsg = "Hello," + this.propMessage;
   selectType(type: string) {
     if (type !== "-" && type !== "+") {
       //type只能是'+'或'-'
