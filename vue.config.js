@@ -1,4 +1,4 @@
-const path = import('path')
+const path = require('path')
 
 module.exports = {
   lintOnSave: false,
@@ -16,7 +16,7 @@ module.exports = {
       .loader('svgo-loader')
       .tap(options => ({ ...options, plugins: [{ removeAttrs: { attrs: 'fill' } }] }))
       .end()
-    config.plugin('svg-sprite').use(import('svg-sprite-loader/plugin'), [{ plainSprite: true }])
+    config.plugin('svg-sprite').use(require('svg-sprite-loader/plugin'), [{ plainSprite: true }])
     config.module.rule('svg').exclude.add(dir) // 其他svg loader 排除 dir 目录
   }
 }
