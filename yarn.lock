@@ -4066,9 +4066,9 @@ domutils@^1.5.1, domutils@^1.7.0:
     domelementtype "1"
 
 domutils@^2.4.3:
-  version "2.4.4"
-  resolved "https://registry.npm.taobao.org/domutils/download/domutils-2.4.4.tgz?cache=0&sync_timestamp=1607393087316&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fdomutils%2Fdownload%2Fdomutils-2.4.4.tgz#282739c4b150d022d34699797369aad8d19bbbd3"
-  integrity sha1-KCc5xLFQ0CLTRpl5c2mq2NGbu9M=
+  version "2.5.0"
+  resolved "https://registry.npm.taobao.org/domutils/download/domutils-2.5.0.tgz?cache=0&sync_timestamp=1615420188618&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fdomutils%2Fdownload%2Fdomutils-2.5.0.tgz#42f49cffdabb92ad243278b331fd761c1c2d3039"
+  integrity sha1-QvSc/9q7kq0kMnizMf12HBwtMDk=
   dependencies:
     dom-serializer "^1.0.1"
     domelementtype "^2.0.1"
