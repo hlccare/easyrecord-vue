@@ -17,15 +17,10 @@ import Types from "@/components/Money/Types.vue";
 import Tags from "@/components/Money/Tags.vue";
 import Notes from "@/components/Money/Notes.vue";
 import { Component, Watch } from "vue-property-decorator";
+import { model } from "@/model";
 
-type Record = {
-  //ts类型声明，只关心类型
-  tags: string[]; //?:则表示可以不存在
-  notes: string;
-  type: string;
-  amount: number;
-  createdAt?: Date; //除了写类型外，还可以写类（构造函数），类是对object的分类
-};
+// const model = require("@/model.js").model; //在TS中引入JS
+// const {model} = require("@/model.js");
 
 @Component({
   components: { NumberPad, Types, Tags, Notes },
@@ -33,14 +28,14 @@ type Record = {
 export default class Money extends Vue {
   name = "Money";
   tags = ["衣", "食", "住", "行"];
-  recordList: Record[] = JSON.parse(
-    window.localStorage.getItem("recordList") || "[]"
-  );
-  record: Record = { tags: [], notes: "", type: "-", amount: 0 };
+  recordList = model.fetch();
+  record: RecordItem = { tags: [], notes: "", type: "-", amount: 0 };
+
   @Watch("recordList")
   onRecordListChange() {
-    window.localStorage.setItem("recordList", JSON.stringify(this.recordList));
+    model.save(this.recordList);
   }
+
   OnUpdateTags(value: string[]) {
     console.log(value);
     this.record.tags = value;
@@ -58,7 +53,7 @@ export default class Money extends Vue {
     this.record.amount = parseFloat(value);
   }
   saveRecord() {
-    const record2: Record = JSON.parse(JSON.stringify(this.record));
+    const record2: RecordItem = model.clone(this.record);
     record2.createdAt = new Date();
     this.recordList.push(record2);
     console.log(this.recordList);
