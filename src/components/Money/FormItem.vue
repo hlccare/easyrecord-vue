@@ -13,7 +13,7 @@ import Vue from "vue";
 @Component
 export default class FormItem extends Vue {
   name="FormItem";
-  value = "";
+  @Prop({default:''}) value !: string;
   @Prop({required:true}) fieldName!: string
   @Prop() placeholder?: string
   @Watch("value")
