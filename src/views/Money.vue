@@ -5,8 +5,11 @@
       <NumberPad :value.sync="record.amount" @submit="saveRecord" />
       <Types :value.sync="record.type" />
       <div class="notes">
-      <FormItem fieldName="备注" placeholder="请输入备注"
-      @update:value="onUpdateNotes" />
+        <FormItem
+          fieldName="备注"
+          placeholder="请输入备注"
+          @update:value="onUpdateNotes"
+        />
       </div>
       <Tags :dataSource.sync="tags" @update:value="OnUpdateTags" />
     </Layout>
@@ -23,12 +26,11 @@ import { Component, Watch } from "vue-property-decorator";
 import { recordListModel } from "@/models/recordListModel";
 import { tagListModel } from "@/models/tagListModel";
 
-
 // const model = require("@/model.js").model; //在TS中引入JS
 // const {model} = require("@/model.js");
 
-const recordList = recordListModel.fetch()
-const tagList = tagListModel.fetch()
+const recordList = recordListModel.fetch();
+const tagList = tagListModel.fetch();
 
 @Component({
   components: { NumberPad, Types, Tags, FormItem },
@@ -41,7 +43,7 @@ export default class Money extends Vue {
 
   @Watch("recordList")
   onRecordListChange() {
-    recordListModel.save(this.recordList);
+    recordListModel.save();
   }
 
   OnUpdateTags(value: string[]) {
@@ -61,10 +63,7 @@ export default class Money extends Vue {
     this.record.amount = parseFloat(value);
   }
   saveRecord() {
-    const record2: RecordItem = recordListModel.clone(this.record);
-    record2.createdAt = new Date();
-    this.recordList.push(record2);
-    console.log(this.recordList);
+    recordListModel.create(this.record);
   }
 }
 </script>
@@ -73,7 +72,7 @@ export default class Money extends Vue {
   display: flex;
   flex-direction: column-reverse;
 }
-.notes{
+.notes {
   padding: 12px 0;
 }
 </style>
