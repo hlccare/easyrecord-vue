@@ -24,7 +24,6 @@ import Tags from "@/components/Money/Tags.vue";
 import FormItem from "@/components/Money/FormItem.vue";
 import { Component, Watch } from "vue-property-decorator";
 import { recordListModel } from "@/models/recordListModel";
-import { tagListModel } from "@/models/tagListModel";
 
 // const model = require("@/model.js").model; //在TS中引入JS
 // const {model} = require("@/model.js");
