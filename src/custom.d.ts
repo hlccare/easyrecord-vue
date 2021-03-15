@@ -19,10 +19,14 @@ type TagListModel = {
     save: () => void;
 }
 interface Window {
+
     tagList: Tag[];
     findTag: (string) => Tag | undefined;
     createTag: (string) => void;
     removeTag: (string) => boolean;
     // updateTag: (string, string) => 'success' | 'notFound' | 'duplicated';
     updateTag: TagListModel['update'];
+
+    recordList: RecordItem[];
+    createRecord: (RecordItem) => void;
 }
