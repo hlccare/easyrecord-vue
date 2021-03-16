@@ -19,6 +19,6 @@ Vue.component('Icon', Icon)
 
 new Vue({
   router,
-  store,
+  store, //初始化Vue.prototype.$store
   render: h => h(App)
 }).$mount('#app')
