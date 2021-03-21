@@ -2,7 +2,7 @@
   <div>
     <label class="formItem">
       <span class="name">{{ fieldName }}</span>
-      <template v-if="type==='datetime-local'">
+      <template v-if="type==='date'">
         <input
         :type="type||'text'"
         :value="x(value)"
@@ -39,7 +39,7 @@ export default class FormItem extends Vue {
     this.$emit("update:value", value);
   }
   x(isoString: string){
-    return dayjs(isoString).format('YYYY-MM-DDTHH:mm')
+    return dayjs(isoString).format('YYYY-MM-DD')
   }
 }
 </script>
