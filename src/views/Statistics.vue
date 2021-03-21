@@ -10,7 +10,8 @@
         class-prefix="interval"
         :data-source="intervalList"
         :value.sync="interval"
-      /> -->
+      /> --> 
+      <Echarts />
       <ol v-if="groupedList.length > 0">
         <li v-for="(group, index) in groupedList" :key="index">
           <h3 class="title">
@@ -26,7 +27,9 @@
           </ol>
         </li>
       </ol>
-      <div v-else class="noResult"></div>
+      <div v-else class="noResult">
+        暂无数据
+      </div>
     </Layout>
   </div>
 </template>

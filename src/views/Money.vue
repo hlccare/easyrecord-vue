@@ -7,6 +7,14 @@
         :data-source="recordTypeList"
         :value.sync="record.type"
       />
+      <div class="createdAt">
+        <FormItem
+          type="datetime-local"
+          fieldName="日期"
+          placeholder="请输入日期"
+          :value.sync="record.createdAt"
+        />
+      </div>
       <div class="notes">
         <FormItem
           fieldName="备注"
@@ -14,6 +22,7 @@
           :value.sync="record.notes"
         />
       </div>
+      
       <Tags @update:value="record.tags = $event" />
     </Layout>
   </div>
@@ -36,7 +45,7 @@ import recordTypeList from "@/constants/recordTypeList";
 })
 export default class Money extends Vue {
   name = "Money";
-  record: RecordItem = { tags: [], notes: "", type: "-", amount: 0 };
+  record: RecordItem = { tags: [], notes: "", type: "-", amount: 0,createdAt:new Date().toISOString() };
   recordTypeList = recordTypeList;
 
   get recordList() {
