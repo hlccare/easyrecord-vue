@@ -1,4 +1,3 @@
-import Nav from '@/components/Nav.vue';
 <template>
   <nav>
     <router-link to="/money" class="item" active-class="selected">

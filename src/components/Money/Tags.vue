@@ -1,16 +1,17 @@
 <template>
   <div class="tags">
-    <div class="new">
+    <!-- <div class="new">
       <button @click="createTag">新增标签</button>
-    </div>
+    </div> -->
     <ul class="current">
       <li
         v-for="tag in tagList"
         :key="tag.id"
-        :class="{ selected: selectedTags.indexOf(tag) >= 0 }"
-        @click="toggle(tag)"
+        :class="{ selected: tag.name === seletedTag }"
+        @click="select(tag.name)"
       >
-        {{ tag.name }}
+        <Icon :name="tag.iconName" />
+        <p>{{ tag.name }}</p>
       </li>
     </ul>
   </div>
@@ -20,16 +21,29 @@
 import { mixins } from "vue-class-component";
 import { Component, Prop } from "vue-property-decorator";
 import TagHelper from "@/mixins/TagHelper";
+import Icon from "@/components/Icon.vue";
 
-@Component
+@Component({
+  components: { Icon },
+})
 export default class Tags extends mixins(TagHelper) {
+  @Prop() value!: string;
   selectedTags: string[] = [];
+  seletedTag: string = this.value;
   get tagList() {
     return this.$store.state.tagList;
   }
   created() {
     this.$store.commit("fetchTags");
   }
+
+  select(tag: string) {
+    if (this.seletedTag !== tag) {
+      this.seletedTag = tag;
+      this.$emit("update:value", this.seletedTag);
+    }
+  }
+
   toggle(tag: string) {
     const index = this.selectedTags.indexOf(tag);
     if (index >= 0) {
@@ -44,40 +58,57 @@ export default class Tags extends mixins(TagHelper) {
 
 <style lang="scss" scoped>
 .tags {
-  background: white;
-  font-size: 14px;
-  padding: 16px;
   flex-grow: 1;
   display: flex;
-  flex-direction: column-reverse;
-  > .current {
+  .current {
+    width: 100%;
     display: flex;
-    flex-wrap: wrap;
     > li {
-      $bg: #d9d9d9;
-      background: $bg;
-      $h: 24px;
-      height: $h;
-      line-height: $h;
-      border-radius: ($h/2);
-      padding: 0 16px;
-      margin-right: 12px;
-      margin-top: 4px;
+      border-radius: 10%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 25%;
+      height: 25%;
+
       &.selected {
-        background: darken($bg, 30%);
-        color: white;
+        background: grey;
+      }
+
+      .icon {
+        height: 40%;
+        width: 40%;
+        margin-bottom: 4px;
       }
     }
   }
-  > .new {
-    padding-top: 16px;
-    button {
-      background: transparent;
-      border: none;
-      color: #999;
-      border-bottom: 1px solid;
-      padding: 0 4px;
-    }
-  }
 }
+// .tags {
+//   background: white;
+//   font-size: 14px;
+//   padding: 16px;
+//   flex-grow: 1;
+//   display: flex;
+//   flex-direction: column-reverse;
+//   > .current {
+//     display: flex;
+//     flex-wrap: wrap;
+//     > li {
+//       $bg: #d9d9d9;
+//       background: $bg;
+//       $h: 24px;
+//       height: $h;
+//       line-height: $h;
+//       border-radius: ($h/2);
+//       padding: 0 16px;
+//       margin-right: 12px;
+//       margin-top: 4px;
+//       &.selected {
+//         background: darken($bg, 30%);
+//         color: white;
+//       }
+//     }
+//   }
+// }
 </style>

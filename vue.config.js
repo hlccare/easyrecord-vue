@@ -1,7 +1,7 @@
 const path = require('path')
 
 module.exports = {
-  publicPath:process.env.NODE_ENV === 'production'
+  publicPath: process.env.NODE_ENV === 'production'
     ? '/easyrecord-vue-website/'
     : '/',
   lintOnSave: false,
@@ -17,7 +17,7 @@ module.exports = {
       .end()
       .use('svgo-loader')
       .loader('svgo-loader')
-      .tap(options => ({ ...options, plugins: [{ removeAttrs: { attrs: 'fill' } }] }))
+      .tap(options => ({ ...options, plugins: [] })) //{ removeAttrs: { attrs: 'fill' } }去除颜色
       .end()
     config.plugin('svg-sprite').use(require('svg-sprite-loader/plugin'), [{ plainSprite: true }])
     config.module.rule('svg').exclude.add(dir) // 其他svg loader 排除 dir 目录

@@ -1,12 +1,13 @@
 <template>
   <div>
     <Layout class-prefix="layout">
-      <NumberPad :value.sync="record.amount" @submit="saveRecord" />
       <Tabs
         class-prefix="type"
         :data-source="recordTypeList"
         :value.sync="record.type"
       />
+      <Tags :value.sync="record.tag" />
+
       <div class="createdAt">
         <FormItem
           type="date"
@@ -22,8 +23,8 @@
           :value.sync="record.notes"
         />
       </div>
-      
-      <Tags @update:value="record.tags = $event" />
+
+      <NumberPad :value.sync="record.amount" @submit="saveRecord" />
     </Layout>
   </div>
 </template>
@@ -36,7 +37,8 @@ import FormItem from "@/components/Money/FormItem.vue";
 import { Component } from "vue-property-decorator";
 import Tabs from "../components/Tabs.vue";
 import recordTypeList from "@/constants/recordTypeList";
-import dayjs from 'dayjs'
+import { expenseTagsList, incomeTagsList } from "@/constants/tagsList";
+import dayjs from "dayjs";
 
 // const model = require("@/model.js").model; //在TS中引入JS
 // const {model} = require("@/model.js");
@@ -46,38 +48,63 @@ import dayjs from 'dayjs'
 })
 export default class Money extends Vue {
   name = "Money";
-  record: RecordItem = { tags: [], notes: "", type: "-", amount: 0,createdAt:dayjs(new Date().toISOString()).format('YYYY-MM-DD') };
+  record: RecordItem = {
+    tag: "",
+    notes: "",
+    type: "-",
+    amount: 0,
+    createdAt: dayjs(new Date().toISOString()).format("YYYY-MM-DD"),
+  };
   recordTypeList = recordTypeList;
 
   get recordList() {
     return this.$store.state.recordList;
   }
 
-  created() {
+  fetch() {
+    this.$store.state.tagList = [];
+    if (this.record.type === "-") {
+      expenseTagsList.forEach((item) => {
+        this.$store.commit("createTag", item);
+      });
+    } else {
+      incomeTagsList.forEach((item) => {
+        this.$store.commit("createTag", item);
+      });
+    }
     this.$store.commit("fetchRecords");
   }
 
-  onUpdateNotes(value: string) {
-    console.log(value);
-    this.record.notes = value;
+  created() {
+    this.fetch();
   }
-  onUpdateType(value: string) {
-    console.log(value);
-    this.record.type = value;
+  updated() {
+    this.fetch();
   }
-  onUpdateAmount(value: string) {
-    console.log(value);
-    this.record.amount = parseFloat(value);
-  }
+
+  // onUpdateNotes(value: string) {
+  //   console.log(value);
+  //   this.record.notes = value;
+  // }
+  // onUpdateType(value: string) {
+  //   console.log(value);
+  //   this.record.type = value;
+  // }
+  // onUpdateAmount(value: string) {
+  //   console.log(value);
+  //   this.record.amount = parseFloat(value);
+  // }
   saveRecord() {
-    if (!this.record.tags || this.record.tags.length === 0) {
-      window.alert("请选择标签~");
+    if (!this.record.tag) {
+      window.alert("请选择标签，请重新输入~");
       return;
     }
     this.$store.commit("createRecord", this.record);
     if (this.$store.state.createRecordError === null) {
       window.alert("已保存");
       this.record.notes = "";
+      this.record.tag = "";
+      console.log(this.record);
     }
   }
 }
@@ -85,7 +112,7 @@ export default class Money extends Vue {
 <style lang="scss" scoped>
 ::v-deep .layout-content {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
 }
 .notes {
   padding: 12px 0;
