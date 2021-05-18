@@ -1,8 +1,5 @@
 <template>
   <div class="tags">
-    <!-- <div class="new">
-      <button @click="createTag">新增标签</button>
-    </div> -->
     <ul class="current">
       <li
         v-for="tag in tagList"
@@ -58,8 +55,10 @@ export default class Tags extends mixins(TagHelper) {
 
 <style lang="scss" scoped>
 .tags {
+  background: #ffffff;
   flex-grow: 1;
   display: flex;
+  padding: 4px;
   .current {
     width: 100%;
     display: flex;
@@ -71,44 +70,23 @@ export default class Tags extends mixins(TagHelper) {
       justify-content: center;
       width: 25%;
       height: 25%;
+      color: grey;
 
+      @media screen and (max-width: 900px) {
+        height: 50%;
+      }
       &.selected {
-        background: grey;
+        background: #dfdddd;
+        color: black;
+        font-weight: 530;
       }
 
       .icon {
-        height: 40%;
-        width: 40%;
+        height: 45%;
+        width: 45%;
         margin-bottom: 4px;
       }
     }
   }
 }
-// .tags {
-//   background: white;
-//   font-size: 14px;
-//   padding: 16px;
-//   flex-grow: 1;
-//   display: flex;
-//   flex-direction: column-reverse;
-//   > .current {
-//     display: flex;
-//     flex-wrap: wrap;
-//     > li {
-//       $bg: #d9d9d9;
-//       background: $bg;
-//       $h: 24px;
-//       height: $h;
-//       line-height: $h;
-//       border-radius: ($h/2);
-//       padding: 0 16px;
-//       margin-right: 12px;
-//       margin-top: 4px;
-//       &.selected {
-//         background: darken($bg, 30%);
-//         color: white;
-//       }
-//     }
-//   }
-// }
 </style>

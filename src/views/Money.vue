@@ -8,21 +8,17 @@
       />
       <Tags :value.sync="record.tag" />
 
-      <div class="createdAt">
-        <FormItem
-          type="date"
-          fieldName="日期"
-          placeholder="请输入日期"
-          :value.sync="record.createdAt"
-        />
-      </div>
-      <div class="notes">
-        <FormItem
-          fieldName="备注"
-          placeholder="请输入备注"
-          :value.sync="record.notes"
-        />
-      </div>
+      <FormItem
+        type="date"
+        fieldName="日期"
+        placeholder="请输入日期"
+        :value.sync="record.createdAt"
+      />
+      <FormItem
+        fieldName="备注"
+        placeholder="请输入备注"
+        :value.sync="record.notes"
+      />
 
       <NumberPad :value.sync="record.amount" @submit="saveRecord" />
     </Layout>
@@ -113,8 +109,5 @@ export default class Money extends Vue {
 ::v-deep .layout-content {
   display: flex;
   flex-direction: column;
-}
-.notes {
-  padding: 12px 0;
 }
 </style>
