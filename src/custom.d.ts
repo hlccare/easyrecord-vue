@@ -1,3 +1,8 @@
+type TagsListItem = {
+    id: number;
+    iconName: string;
+    name: string;
+}
 
 type RootState = {
     recordList: RecordItem[];
@@ -5,13 +10,15 @@ type RootState = {
     createTagError: Error | null;
     tagList: Tag[];
     currentTag?: Tag;
+    expenseTagsList: TagsListItem[];
+    incomeTagsList: TagsListItem[];
 }
 
 type RecordItem = {
-    //ts类型声明，只关心类型
-    tag: string; //?:则表示可以不存在
+    id: number;
+    tagId: number; //?:则表示可以不存在
     notes: string;
-    type: string;
+    type: '+' | '-';
     amount: number;
     createdAt?: string; //除了写类型外，还可以写类（构造函数），类是对object的分类
 }

@@ -5,7 +5,9 @@
       <button @click="inputContent">1</button>
       <button @click="inputContent">2</button>
       <button @click="inputContent">3</button>
-      <button @click="remove">删除</button>
+      <button class="backspace" @click="remove">
+        <Icon name="backspace"></Icon>
+      </button>
       <button @click="inputContent">4</button>
       <button @click="inputContent">5</button>
       <button @click="inputContent">6</button>
@@ -97,6 +99,9 @@ export default class NumberPad extends Vue {
       border-left: none;
       @media (max-height: 700px) {
         height: $height-small;
+      }
+      &.backspace {
+        color: #f85f4b;
       }
       &.ok {
         height: $height-normal * 2;

@@ -3,6 +3,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import router from '@/router';
 import createId from '@/lib/createId';
+import { expenseTagsList, incomeTagsList } from '@/constants/tagsList';
 
 Vue.use(Vuex) //把 store 绑到 Vue.prototype.$store = store
 
@@ -12,6 +13,8 @@ const store = new Vuex.Store({
     createRecordError: null,
     createTagError: null,
     tagList: [],
+    expenseTagsList: expenseTagsList,
+    incomeTagsList: incomeTagsList,
     currentTag: undefined
   } as RootState,
   mutations: {//methods
@@ -30,6 +33,12 @@ const store = new Vuex.Store({
     saveRecords(state) {
       window.localStorage.setItem('recordList', JSON.stringify(state.recordList));
     },
+
+
+
+
+
+
     fetchTags(state) {
       state.tagList = JSON.parse(
         window.localStorage.getItem('tagList') || "[]"

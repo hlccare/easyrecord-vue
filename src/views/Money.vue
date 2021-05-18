@@ -1,12 +1,13 @@
 <template>
   <div>
     <Layout class-prefix="layout">
+      {{ record }}
       <Tabs
         class-prefix="type"
         :data-source="recordTypeList"
         :value.sync="record.type"
       />
-      <Tags :value.sync="record.tag" />
+      <Tags :value.sync="record.tagId" :type="record.type" />
 
       <FormItem
         type="date"
@@ -33,7 +34,6 @@ import FormItem from "@/components/Money/FormItem.vue";
 import { Component } from "vue-property-decorator";
 import Tabs from "../components/Tabs.vue";
 import recordTypeList from "@/constants/recordTypeList";
-import { expenseTagsList, incomeTagsList } from "@/constants/tagsList";
 import dayjs from "dayjs";
 
 // const model = require("@/model.js").model; //在TS中引入JS
@@ -45,7 +45,8 @@ import dayjs from "dayjs";
 export default class Money extends Vue {
   name = "Money";
   record: RecordItem = {
-    tag: "",
+    id: 0,
+    tagId: -1,
     notes: "",
     type: "-",
     amount: 0,
@@ -56,42 +57,8 @@ export default class Money extends Vue {
   get recordList() {
     return this.$store.state.recordList;
   }
-
-  fetch() {
-    this.$store.state.tagList = [];
-    if (this.record.type === "-") {
-      expenseTagsList.forEach((item) => {
-        this.$store.commit("createTag", item);
-      });
-    } else {
-      incomeTagsList.forEach((item) => {
-        this.$store.commit("createTag", item);
-      });
-    }
-    this.$store.commit("fetchRecords");
-  }
-
-  created() {
-    this.fetch();
-  }
-  updated() {
-    this.fetch();
-  }
-
-  // onUpdateNotes(value: string) {
-  //   console.log(value);
-  //   this.record.notes = value;
-  // }
-  // onUpdateType(value: string) {
-  //   console.log(value);
-  //   this.record.type = value;
-  // }
-  // onUpdateAmount(value: string) {
-  //   console.log(value);
-  //   this.record.amount = parseFloat(value);
-  // }
   saveRecord() {
-    if (!this.record.tag) {
+    if (this.record.tagId === -1) {
       window.alert("请选择标签，请重新输入~");
       return;
     }
@@ -99,7 +66,7 @@ export default class Money extends Vue {
     if (this.$store.state.createRecordError === null) {
       window.alert("已保存");
       this.record.notes = "";
-      this.record.tag = "";
+      this.record.tagId = -1;
       console.log(this.record);
     }
   }

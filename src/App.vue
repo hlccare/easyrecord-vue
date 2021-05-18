@@ -14,10 +14,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  background: #f5f5f5;
 }
 #app {
-    max-width: 500px;
-    margin: 0 auto;
-  }
+  max-width: 500px;
+  margin: 0 auto;
+}
 </style>

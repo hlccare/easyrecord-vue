@@ -4,8 +4,8 @@
       <li
         v-for="tag in tagList"
         :key="tag.id"
-        :class="{ selected: tag.name === seletedTag }"
-        @click="select(tag.name)"
+        :class="{ selected: tag.id === seletedTagId }"
+        @click="select(tag.id)"
       >
         <Icon :name="tag.iconName" />
         <p>{{ tag.name }}</p>
@@ -24,31 +24,31 @@ import Icon from "@/components/Icon.vue";
   components: { Icon },
 })
 export default class Tags extends mixins(TagHelper) {
-  @Prop() value!: string;
-  selectedTags: string[] = [];
-  seletedTag: string = this.value;
+  @Prop({
+    type: Number,
+    required: true,
+  })
+  value!: number;
+  @Prop({
+    type: String,
+    required: true,
+  })
+  type!: "-" | "+";
+  seletedTagId: number = this.value;
   get tagList() {
-    return this.$store.state.tagList;
+    return this.type === "-"
+      ? this.$store.state.expenseTagsList
+      : this.$store.state.incomeTagsList;
   }
   created() {
     this.$store.commit("fetchTags");
   }
 
-  select(tag: string) {
-    if (this.seletedTag !== tag) {
-      this.seletedTag = tag;
-      this.$emit("update:value", this.seletedTag);
+  select(tagId: number) {
+    if (this.seletedTagId !== tagId) {
+      this.seletedTagId = tagId;
+      this.$emit("update:value", this.seletedTagId);
     }
-  }
-
-  toggle(tag: string) {
-    const index = this.selectedTags.indexOf(tag);
-    if (index >= 0) {
-      this.selectedTags.splice(index, 1);
-    } else {
-      this.selectedTags.push(tag);
-    }
-    this.$emit("update:value", this.selectedTags);
   }
 }
 </script>
@@ -57,11 +57,19 @@ export default class Tags extends mixins(TagHelper) {
 .tags {
   background: #ffffff;
   flex-grow: 1;
-  display: flex;
-  padding: 4px;
+  position: relative;
   .current {
+    height: 100%;
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
+    padding: 4px;
+    position: absolute;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
     > li {
       border-radius: 10%;
       display: flex;
