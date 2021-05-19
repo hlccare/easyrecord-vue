@@ -1,19 +1,19 @@
 <template>
   <div class="detail-item">
     <div class="iconWrapper">
-      <Icon name="bonus" />
+      <Icon :name="iconName" />
     </div>
     <div class="content-wrapper">
       <div class="upper">
         <div class="tag oneLine">
-          <span>123</span>
+          <span>{{ tagName }}</span>
         </div>
-        <div class="amount">￥100</div>
+        <div class="amount">￥{{ record.amount }}</div>
       </div>
       <div class="lower">
-        <div class="note oneLine">123</div>
+        <div class="note oneLine">{{ record.notes }}</div>
         <div class="deleteIconWrapper">
-          <Icon name="delete" />
+          <Icon name="delete" @click="deleteRecord(record.id)" />
         </div>
       </div>
     </div>
@@ -21,10 +21,26 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component
-export default class DetailItem extends Vue {}
+export default class DetailItem extends Vue {
+  @Prop({
+    type: Object,
+    required: true,
+  })
+  record!: RecordItem;
+  deleteRecord(id: number) {
+    console.log("delete");
+    this.$store.commit("deleteRecord", id);
+  }
+  get tagName() {
+    return this.$store.getters.getTagNameById(this.record.tagId);
+  }
+  get iconName() {
+    return this.$store.getters.getIconNameById(this.record.tagId);
+  }
+}
 </script>
 
 <style lang='scss' scoped>

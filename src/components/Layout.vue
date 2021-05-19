@@ -1,5 +1,6 @@
 <template>
   <div class="layout-wrapper" :class="classPrefix && `${classPrefix}-wrapper`">
+    <slot name="header" />
     <div class="content" :class="classPrefix && `${classPrefix}-content`">
       <slot />
     </div>
@@ -23,5 +24,8 @@ export default {
 .content {
   flex-grow: 1;
   overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 </style>

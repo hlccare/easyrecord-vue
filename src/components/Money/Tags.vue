@@ -4,7 +4,7 @@
       <li
         v-for="tag in tagList"
         :key="tag.id"
-        :class="{ selected: tag.id === seletedTagId }"
+        :class="{ selected: tag.id === selectedTagId }"
         @click="select(tag.id)"
       >
         <Icon :name="tag.iconName" />
@@ -28,27 +28,23 @@ export default class Tags extends mixins(TagHelper) {
     type: Number,
     required: true,
   })
-  value!: number;
+  selectedTagId!: number;
   @Prop({
     type: String,
     required: true,
   })
   type!: "-" | "+";
-  seletedTagId: number = this.value;
   get tagList() {
     return this.type === "-"
       ? this.$store.state.expenseTagsList
       : this.$store.state.incomeTagsList;
   }
-  created() {
-    this.$store.commit("fetchTags");
-  }
+  // created() {
+  //   this.$store.commit("fetchTags");
+  // }
 
   select(tagId: number) {
-    if (this.seletedTagId !== tagId) {
-      this.seletedTagId = tagId;
-      this.$emit("update:value", this.seletedTagId);
-    }
+    this.$emit("update:selectedTagId", tagId);
   }
 }
 </script>

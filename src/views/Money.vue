@@ -1,13 +1,13 @@
 <template>
   <div>
     <Layout class-prefix="layout">
-      {{ record }}
+      <!-- {{ record }} -->
       <Tabs
         class-prefix="type"
         :data-source="recordTypeList"
         :value.sync="record.type"
       />
-      <Tags :value.sync="record.tagId" :type="record.type" />
+      <Tags :selectedTagId.sync="record.tagId" :type="record.type" />
 
       <FormItem
         type="date"

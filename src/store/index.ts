@@ -1,7 +1,6 @@
 import clone from '@/lib/clone';
 import Vue from 'vue'
 import Vuex from 'vuex'
-import router from '@/router';
 import createId from '@/lib/createId';
 import { expenseTagsList, incomeTagsList } from '@/constants/tagsList';
 
@@ -24,45 +23,22 @@ const store = new Vuex.Store({
       ) as RecordItem[];
     },
     createRecord(state, record: RecordItem) {
-      const record2: RecordItem = clone(record)
-      record2.createdAt = record2.createdAt || new Date().toISOString()
-      state.recordList.push(record2)
-      // this.recordList?.push(record2) //可选链语法
+      state.recordList.push({ ...record, id: createId() })
       store.commit('saveRecords')
     },
     saveRecords(state) {
       window.localStorage.setItem('recordList', JSON.stringify(state.recordList));
     },
-
-
-
-
-
+    deleteRecord(state, id: number) {
+      state.recordList = state.recordList.filter((record) => { return record.id !== id })
+      store.commit('saveRecords')
+    },
 
     fetchTags(state) {
       state.tagList = JSON.parse(
         window.localStorage.getItem('tagList') || "[]"
       ) as Tag[];
-      // console.log(state.tagList)
-      // if (!state.tagList || state.tagList.length === 0) {
-      //   store.commit('createTag', '衣')
-      //   store.commit('createTag', '食')
-      //   store.commit('createTag', '住')
-      //   store.commit('createTag', '行')
-      // }
     },
-    // createTag(state, name: string) {
-    //   state.createTagError = null
-    //   const names = state.tagList.map(item => item.name)
-    //   if (names.indexOf(name) >= 0) {
-    //     window.alert("标签名重复了")
-    //     state.createTagError = new Error('tag name duplicated')
-    //     return;
-    //   }
-    //   const id = createId().toString()
-    //   state.tagList.push({ id, name: name })
-    //   store.commit('saveTags')
-    // },
     createTag(state, { iconName, name }) {
       state.createTagError = null
       const names = state.tagList.map(item => item.name)
@@ -77,39 +53,23 @@ const store = new Vuex.Store({
     saveTags(state) {
       window.localStorage.setItem('tagList', JSON.stringify(state.tagList));
     },
-    // setCurrentTag(state, id: string) {
-    //   state.currentTag = state.tagList.filter(t => t.id === id)[0]
-    // },
-    // updateTag(state, object: { id: string; name: string }) {
-    //   const { id, name } = object
-    //   const idList = state.tagList.map(item => item.id)
-    //   if (idList.indexOf(id) >= 0) {
-    //     const names = state.tagList.map(item => item.name)
-    //     if (names.indexOf(name) >= 0) {
-    //       window.alert('标签名重复了')
-    //     } else {
-    //       const tag = state.tagList.filter(item => item.id === id)[0]
-    //       tag.name = name
-    //       store.commit('saveTags')
-    //     }
-    //   }
-    // },
-    // removeTag(state, id: string) {
-    //   let index = -1;
-    //   for (let i = 0; i < state.tagList.length; i++) {
-    //     if (state.tagList[i].id === id) {
-    //       index = i
-    //       break
-    //     }
-    //   }
-    //   if (index >= 0) {
-    //     state.tagList.splice(index, 1)
-    //     store.commit('saveTags')
-    //     router.back()
-    //   } else {
-    //     window.alert('删除失败')
-    //   }
-    // },
+    getTagNameById(state, id: number) {
+      const tagsList = id.toString()[0] === '1' ? state.expenseTagsList : state.incomeTagsList
+      return tagsList.filter(r => r.id === id)[0].name
+    },
+  },
+  getters: {
+    getIconNameById: (state) => (id: number): string => {
+      const tagsList = id.toString()[0] === '1' ? state.expenseTagsList : state.incomeTagsList
+      return tagsList.filter(r => r.id === id)[0].iconName
+    },
+    getTagNameById: (state) => (id: number): string => {
+      const tagsList = id.toString()[0] === '1' ? state.expenseTagsList : state.incomeTagsList
+      return tagsList.filter(r => r.id === id)[0].name
+    },
+    getRecordListByType: (state) => (type: '+' | '-'): RecordItem[] => {
+      return state.recordList.filter((item) => item.type === type)
+    }
   }
 });
 export default store;
