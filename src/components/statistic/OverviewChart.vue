@@ -136,7 +136,6 @@ export default class OverviewChart extends Vue {
 
 <style lang='scss' scoped>
 .overview-chart-wrapper {
-  margin-top: 3em;
   padding: 4px;
 }
 </style>

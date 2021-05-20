@@ -90,7 +90,6 @@ export default class TypeStatistic extends Vue {
 
 <style lang='scss' scoped>
 .amount-wrapper {
-  margin-top: 3em;
   text-align: center;
   > .mark {
     font-size: 1.25em;

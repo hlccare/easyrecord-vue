@@ -1,10 +1,11 @@
 <template>
   <div>
-    <Layout>
+    <Layout classPrefix="layout">
       <Tabs
         class-prefix="type"
         :data-source="statTypeList"
         :value.sync="type"
+        slot="header"
       />
       <template v-if="type === '*'">
         <OverviewChart />
@@ -84,4 +85,9 @@ export default class Statistics extends Vue {
 
   background: white;
 } */
+::v-deep .layout-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 </style>

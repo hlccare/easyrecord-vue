@@ -1,27 +1,22 @@
 <template>
   <div>
     <Layout class-prefix="layout">
-      <template>
-        <Tabs
-          class-prefix="type"
-          :data-source="recordTypeList"
-          :value.sync="type"
-          slot="header"
+      <Tabs
+        class-prefix="type"
+        :data-source="recordTypeList"
+        :value.sync="type"
+        slot="header"
+      />
+      <div v-if="detailList.length === 0">
+        <no-data-img />
+      </div>
+      <template v-for="([date, { records, sum }], index1) in detailList" v-else>
+        <detail-header :key="index1" :date="date" :amount="sum" />
+        <detail-item
+          v-for="(item, index2) in records"
+          :record="item"
+          :key="`${index1}-${index2}`"
         />
-        <div v-if="detailList.length === 0">
-          <no-data-img />
-        </div>
-        <template
-          v-for="([date, { records, sum }], index1) in detailList"
-          v-else
-        >
-          <detail-header :key="index1" :date="date" :amount="sum" />
-          <detail-item
-            v-for="(item, index2) in records"
-            :record="item"
-            :key="`${index1}-${index2}`"
-          />
-        </template>
       </template>
     </Layout>
   </div>
@@ -87,4 +82,8 @@ export default class Detail extends Vue {
 </script>
 
 <style lang='scss' scoped>
+::v-deep .layout-content {
+  display: flex;
+  flex-direction: column;
+}
 </style>

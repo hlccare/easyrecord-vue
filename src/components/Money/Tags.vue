@@ -1,6 +1,6 @@
 <template>
-  <div class="tags">
-    <ul class="current">
+  <div class="tags" ref="tags">
+    <ul class="current" ref="current">
       <li
         v-for="tag in tagList"
         :key="tag.id"
@@ -39,9 +39,13 @@ export default class Tags extends mixins(TagHelper) {
       ? this.$store.state.expenseTagsList
       : this.$store.state.incomeTagsList;
   }
-  // created() {
-  //   this.$store.commit("fetchTags");
-  // }
+
+  mounted() {
+    console.log("set height");
+    let height = (this.$refs.current as Element).clientHeight;
+    console.log(height);
+    (this.$refs.tags as HTMLElement).style.height = height + "px";
+  }
 
   select(tagId: number) {
     this.$emit("update:selectedTagId", tagId);

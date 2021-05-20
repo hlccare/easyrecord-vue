@@ -1,11 +1,11 @@
 <template>
   <div>
     <Layout class-prefix="layout">
-      <!-- {{ record }} -->
       <Tabs
         class-prefix="type"
         :data-source="recordTypeList"
         :value.sync="record.type"
+        slot="header"
       />
       <Tags :selectedTagId.sync="record.tagId" :type="record.type" />
 
