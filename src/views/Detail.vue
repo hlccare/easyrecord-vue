@@ -74,6 +74,10 @@ export default class Detail extends Vue {
 
   created() {
     this.$store.commit("fetchRecords");
+    if (this.$route.params.type) {
+      if (this.$route.params.type === "+" || this.$route.params.type === "-")
+        this.type = this.$route.params.type;
+    }
   }
 
   get recordList(): RecordItem[] {

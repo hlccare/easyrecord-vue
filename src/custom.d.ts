@@ -22,6 +22,13 @@ type RecordItem = {
     amount: number;
     createdAt?: string; //除了写类型外，还可以写类（构造函数），类是对object的分类
 }
+
+type Result = {
+    id: number;
+    amount: number;
+    share: string;
+}[]
+
 type Tag = {
     iconName: string;
     name: string;

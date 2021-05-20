@@ -22,6 +22,10 @@ const routes: Array<RouteConfig> = [
     component: Money
   },
   {
+    path: '/detail/:type',
+    component: Detail
+  },
+  {
     path: '/detail',
     component: Detail
   },

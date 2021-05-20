@@ -1,26 +1,22 @@
 <template>
-  <button 
-      class="button"
-      @click="$emit('click',$event)">
-        <slot />
-      </button>
+  <button class="button" @click="$emit('click', $event)">
+    <slot />
+  </button>
 </template>
 <script lang="ts">
-import Vue from 'vue'
-export default Vue.extend({
-    
-})
+import Vue from "vue";
+export default Vue.extend({});
 </script>
 
 <style lang="scss" scoped>
-button{
-  background: #767676;
+button {
+  background: #9ccac0;
   color: white;
   border-radius: 4px;
   border: none;
   height: 40px;
   padding: 0 16px;
-  &-wrapper{
+  &-wrapper {
     text-align: center;
     padding: 16px;
     margin-top: 44-16px;
