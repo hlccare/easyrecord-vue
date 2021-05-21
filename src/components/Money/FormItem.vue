@@ -5,7 +5,8 @@
       <template v-if="type === 'date'">
         <input
           :type="type || 'text'"
-          :value="x(value)"
+          :value="getFormattedDate(value)"
+          :max="today"
           @input="onValueChanged($event.target.value)"
           :placeholder="placeholder"
         />
@@ -33,10 +34,11 @@ export default class FormItem extends Vue {
   @Prop({ required: true }) fieldName!: string;
   @Prop() placeholder?: string;
   @Prop() type?: string;
+  today = this.getFormattedDate(new Date());
   onValueChanged(value: string) {
     this.$emit("update:value", value);
   }
-  x(isoString: string) {
+  getFormattedDate(isoString: Date) {
     return dayjs(isoString).format("YYYY-MM-DD");
   }
 }

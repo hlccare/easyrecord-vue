@@ -10,21 +10,23 @@
       <div v-if="detailList.length === 0">
         <no-data-img />
       </div>
-      <template v-for="([date, { records, sum }], index1) in detailList" v-else>
-        <detail-header :key="index1" :date="date" :amount="sum" />
-        <detail-item
-          v-for="(item, index2) in records"
-          :record="item"
-          :key="`${index1}-${index2}`"
-        />
-      </template>
+      <div class="detail" v-else>
+        <template v-for="([date, { records, sum }], index1) in detailList">
+          <detail-header :key="index1" :date="date" :amount="sum" />
+          <detail-item
+            v-for="(item, index2) in records"
+            :record="item"
+            :key="`${index1}-${index2}`"
+          />
+        </template>
+      </div>
     </Layout>
   </div>
 </template>
 
 <script lang="ts">
 import dayjs from "dayjs";
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import Tabs from "../components/Tabs.vue";
 import recordTypeList from "@/constants/recordTypeList";
 import DetailItem from "../components/Detail/DetailItem.vue";
@@ -85,5 +87,9 @@ export default class Detail extends Vue {
 ::v-deep .layout-content {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+}
+.detail {
+  flex-grow: 1;
 }
 </style>

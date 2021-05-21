@@ -16,3 +16,8 @@ button, input{
 :focus{
     outline: none;
 }
+.oneLine {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }

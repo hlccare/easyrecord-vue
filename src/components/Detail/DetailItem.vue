@@ -11,9 +11,9 @@
         <div class="amount">￥{{ record.amount }}</div>
       </div>
       <div class="lower">
-        <div class="note oneLine">{{ record.notes }}</div>
+        <div class="note oneLine" :title="record.notes">{{ record.notes }}</div>
         <div class="deleteIconWrapper">
-          <Icon name="delete" @click="deleteRecord(record.id)" />
+          <Icon name="delete" @click="showDialog" />
         </div>
       </div>
     </div>
@@ -21,24 +21,46 @@
 </template>
 
 <script lang="ts">
+import { openDialog } from "@/lib/openDialog";
 import { Component, Prop, Vue } from "vue-property-decorator";
-
-@Component
+import Dialog from "../Dialog.vue";
+@Component({
+  components: {
+    Dialog,
+  },
+})
 export default class DetailItem extends Vue {
   @Prop({
     type: Object,
     required: true,
   })
   record!: RecordItem;
-  deleteRecord(id: number) {
-    console.log("delete");
-    this.$store.commit("deleteRecord", id);
-  }
+  dialog!: Vue;
+
   get tagName() {
     return this.$store.getters.getTagNameById(this.record.tagId);
   }
   get iconName() {
     return this.$store.getters.getIconNameById(this.record.tagId);
+  }
+
+  showDialog() {
+    openDialog({
+      title: "提示",
+      content: "是否要删除此项记录？",
+      okHandler: () => {
+        console.log("ok");
+        this.deleteRecord(this.record.id);
+      },
+      cancelHandler: () => {
+        console.log("cancel");
+      },
+      closeOnClickOverlay: true,
+    });
+  }
+
+  deleteRecord(id: number) {
+    this.$store.commit("deleteRecord", id);
   }
 }
 </script>

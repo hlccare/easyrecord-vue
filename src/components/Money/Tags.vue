@@ -41,9 +41,7 @@ export default class Tags extends mixins(TagHelper) {
   }
 
   mounted() {
-    console.log("set height");
-    let height = (this.$refs.current as Element).clientHeight;
-    console.log(height);
+    const height = (this.$refs.current as Element).clientHeight;
     (this.$refs.tags as HTMLElement).style.height = height + "px";
   }
 
