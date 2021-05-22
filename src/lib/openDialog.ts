@@ -2,7 +2,7 @@ import Vue from "vue"
 import Dialog from '../components/Dialog.vue';
 
 const openDialog = (options: any) => {
-    const { title, content, okHandler, cancelHandler, closeOnClickOverlay } = options
+    const { type, title, content, okHandler, cancelHandler, closeOnClickOverlay } = options
     const div = document.createElement('div')
     document.body.append(div)
     const close = () => {
@@ -13,7 +13,7 @@ const openDialog = (options: any) => {
         render(h) {
             return h(Dialog, {
                 props: {
-
+                    type,
                     visible: true,
                     okHandler, cancelHandler, closeOnClickOverlay
                 },

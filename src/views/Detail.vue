@@ -85,11 +85,16 @@ export default class Detail extends Vue {
 
 <style lang='scss' scoped>
 ::v-deep .layout-content {
+  height: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 .detail {
   flex-grow: 1;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 </style>

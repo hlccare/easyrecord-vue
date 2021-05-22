@@ -35,6 +35,7 @@ import { Component } from "vue-property-decorator";
 import Tabs from "../components/Tabs.vue";
 import recordTypeList from "@/constants/recordTypeList";
 import dayjs from "dayjs";
+import { openDialog } from "@/lib/openDialog";
 
 // const model = require("@/model.js").model; //在TS中引入JS
 // const {model} = require("@/model.js");
@@ -59,12 +60,28 @@ export default class Money extends Vue {
   }
   saveRecord() {
     if (this.record.tagId === -1) {
-      window.alert("请选择标签，请重新输入~");
+      openDialog({
+        type: "alert",
+        title: "提示",
+        content: "请选择标签并重新输入",
+        okHandler: () => {
+          console.log("ok");
+        },
+        closeOnClickOverlay: true,
+      });
       return;
     }
     this.$store.commit("createRecord", this.record);
     if (this.$store.state.createRecordError === null) {
-      window.alert("已保存");
+      openDialog({
+        type: "alert",
+        title: "提示",
+        content: "成功添加记录",
+        okHandler: () => {
+          console.log("ok");
+        },
+        closeOnClickOverlay: true,
+      });
       this.record.notes = "";
       this.record.tagId = -1;
       console.log(this.record);

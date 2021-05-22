@@ -11,8 +11,8 @@
           <slot name="content" />
         </main>
         <footer>
-          <Button @click="ok">OK</Button>
-          <Button @click="cancel">cancel</Button>
+          <Button @click="ok">确定</Button>
+          <Button @click="cancel" v-if="type === 'confirm'">取消</Button>
         </footer>
       </div>
     </div>
@@ -29,6 +29,14 @@ import Button from "@/components/Button.vue";
   },
 })
 export default class Dialog extends Vue {
+  @Prop({
+    type: String,
+    default: "confirm",
+    validator(value) {
+      return ["confirm", "alert"].indexOf(value) > -1;
+    },
+  })
+  type!: "confirm" | "alert";
   @Prop({ type: Boolean, default: false }) visible!: boolean;
   @Prop({ type: Boolean, default: true }) closeOnClickOverlay!: boolean;
   @Prop() okHandler?: () => boolean;
@@ -61,6 +69,10 @@ $border-color: #d9d9d9;
   box-shadow: 0 0 3px fade-out($color: black, $amount: 0.5);
   min-width: 15em;
   max-width: 90%;
+
+  ::v-deep button + button {
+    margin-left: 4px;
+  }
 
   &-overlay {
     position: fixed;

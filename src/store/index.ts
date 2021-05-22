@@ -118,10 +118,10 @@ const store = new Vuex.Store({
           items: [dayTotalList[0]]
         }
       ]
-      for (let i = 0; i < dayTotalList.length; i++) {
+      for (let i = 1; i < dayTotalList.length; i++) {
         const current = dayTotalList[i]
         const last = result[result.length - 1]
-        if (dayjs(last.title).isSame(dayjs(current.createdAt), 'day')) {
+        if (dayjs(last.items[0].createdAt).isSame(dayjs(current.createdAt), 'day')) {
           last.items.push(current) //与末尾记录为同一天则存入
         } else {
           result.push(
