@@ -1,14 +1,13 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import Home from '@/views/Home.vue'
-import Money from '@/views/Money.vue'
-import Detail from '@/views/Detail.vue'
-import Labels from '@/views/Labels.vue'
-import Statistics from '@/views/Statistics.vue'
-import NotFound from '@/views/NotFound.vue'
-import EditLabel from '@/views/EditLabel.vue'
-import { component } from 'vue/types/umd'
 Vue.use(VueRouter)
+
+const Money = () => import(/* webpackChunkName: "chunk-Money" */ '@/views/Money.vue')
+const Detail = () => import(/* webpackChunkName: "chunk-Detail" */ '@/views/Detail.vue')
+const Labels = () => import(/* webpackChunkName: "chunk-Labels" */ '@/views/Labels.vue')
+const Statistics = () => import(/* webpackChunkName: "chunk-Statistics" */ '@/views/Statistics.vue')
+const NotFound = () => import(/* webpackChunkName: "chunk-NotFound" */ '@/views/NotFound.vue')
+const EditLabel = () => import(/* webpackChunkName: "chunk-EditLabel" */ '@/views/EditLabel.vue')
 
 
 

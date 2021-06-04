@@ -1,4 +1,3 @@
-import clone from '@/lib/clone';
 import Vue from 'vue'
 import Vuex from 'vuex'
 import createId from '@/lib/createId';
