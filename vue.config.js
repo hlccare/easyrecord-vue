@@ -9,8 +9,6 @@ module.exports = {
   lintOnSave: false,
   chainWebpack: config => {
 
-    // config.plugins.delete('prefetch')
-
     const dir = path.resolve(__dirname, 'src/assets/icons')
     config.module
       .rule('svg-sprite')
@@ -26,6 +24,12 @@ module.exports = {
       .end()
     config.plugin('svg-sprite').use(require('svg-sprite-loader/plugin'), [{ plainSprite: true }])
     config.module.rule('svg').exclude.add(dir) // 其他svg loader 排除 dir 目录
+    config          //配置 title
+      .plugin('html')
+      .tap(args => {
+        args[0].title = '简易记账'
+        return args
+      })
     // 开启js、css压缩
     if (process.env.NODE_ENV === 'production') {
       config.plugin('compressionPlugin')
@@ -35,5 +39,6 @@ module.exports = {
           deleteOriginalAssets: false // 不删除源文件
         }))
     }
+
   }
 }

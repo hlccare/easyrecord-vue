@@ -1,29 +1,19 @@
-# easyrecord
+# 简易记账
+一个基于Vue / Vue-router / Typescript 的单页面应用，用于简单记账。
 
-## Project setup
+* 使用Vuex进行全局数据管理
+* 使用localStorage进行本地数据存储
+* 使用类组件 + vue-property-decorator 进行 TS 代码书写
+## 运行
 ```
 yarn install
 ```
 
-### Compiles and hot-reloads for development
 ```
 yarn serve
 ```
 
-### Compiles and minifies for production
+### 编译构建
 ```
 yarn build
 ```
-
-### Run your unit tests
-```
-yarn test:unit
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
